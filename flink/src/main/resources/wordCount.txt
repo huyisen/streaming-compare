@@ -1,0 +1,32 @@
+Continuous Processing for Unbounded Datasets
+Before we go into detail about Flink, let’s review at a higher level the types of datasets you’re likely to encounter when processing data as well as types of execution models you can choose for processing. These two ideas are often conflated, and it’s useful to clearly separate them.
+
+First, 2 types of datasets
+
+Unbounded: Infinite datasets that are appended to continuously
+Bounded: Finite, unchanging datasets
+Many real-world data sets that are traditionally thought of as bounded or “batch” data are in reality unbounded datasets. This is true whether the data is stored in a sequence of directories on HDFS or in a log-based system like Apache Kafka.
+
+Examples of unbounded datasets include but are not limited to:
+
+End users interacting with mobile or web applications
+Physical sensors providing measurements
+Financial markets
+Machine log data
+Second, 2 types of execution models
+
+Streaming: Processing that executes continuously as long as data is being produced
+Batch: Processing that is executed and runs to completeness in a finite amount of time, releasing computing resources when finished
+It’s possible, though not necessarily optimal, to process either type of dataset with either type of execution model. For instance, batch execution has long been applied to unbounded datasets despite potential problems with windowing, state management, and out-of-order data.
+
+Flink relies on a streaming execution model, which is an intuitive fit for processing unbounded datasets: streaming execution is continuous processing on data that is continuously produced. And alignment between the type of dataset and the type of execution model offers many advantages with regard to accuracy and performance.
+
+Features: Why Flink?
+Flink is an open-source framework for distributed stream processing that:
+
+Provides results that are accurate, even in the case of out-of-order or late-arriving data
+Is stateful and fault-tolerant and can seamlessly recover from failures while maintaining exactly-once application state
+Performs at large scale, running on thousands of nodes with very good throughput and latency characteristics
+Earlier, we discussed aligning the type of dataset (bounded vs. unbounded) with the type of execution model (batch vs. streaming). Many of the Flink features listed below–state management, handling of out-of-order data, flexible windowing–are essential for computing accurate results on unbounded datasets and are enabled by Flink’s streaming execution model.
+
+Flink guarantees exactly-once semantics for stateful computations. ‘Stateful’ means that applications can maintain an aggregation or summary of data that has been processed over time, and Flink’s checkpointing mechanism ensures exactly-once semantics for an application’s state in the event of a failure
